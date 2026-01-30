@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramon Torres National High School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8fafc; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { font-size: 2rem; font-weight: 700; letter-spacing: -1px; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s ease; }
+        nav a:hover { opacity: 0.8; }
+        main { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05),0 1px 3px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid #e2e8f0; text-align: center; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px rgba(0,0,0,0.1),0 10px 10px rgba(0,0,0,0.04); }
+        .card h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #1a202c; }
+        .card p { color: #4a5568; margin-bottom: 1.5rem; line-height: 1.7; }
+        .btn { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; cursor: pointer; font-family: inherit; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.4); }
+        footer { background-color: #1a202c; color: white; text-align: center; padding: 2rem 0; margin-top: 4rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        @media (max-width: 768px) { .header-container { flex-direction: column; gap: 1rem; text-align: center; } .logo { font-size: 1.5rem; } nav ul { gap: 1rem; } main { margin: 2rem auto; padding: 0 1rem; } .cards-container { grid-template-columns: 1fr; gap: 1.5rem; } .card { padding: 1.5rem; } }
+        @media (max-width: 800px) { .header-container { padding: 0 1rem; } .logo { font-size: 1.25rem; } nav ul { flex-direction: column; gap: 0.5rem; } .card { padding: 1rem; } }   
+    </style>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Ramon Torres National High School</div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="file:///D:/Ramon%20Torres/developers.html">Developer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<!-- ====== HERO LANDSCAPE BANNER SLIDER START ====== -->
+<style>
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Makes it tall like a big landscape banner */
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.hero-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* Dark overlay for better visibility if you add text later */
+.hero-slider::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.35);
+}
+
+/* Navigation buttons */
+.hero-prev,
+.hero-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.25);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 26px;
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.hero-prev:hover,
+.hero-next:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.hero-prev { left: 25px; }
+.hero-next { right: 25px; }
+</style>
+
+<div class="hero-slider">
+    <div class="hero-slides">
+        <img src="banner.png" class="hero-slide active">
+       <img src="banner9.jpg" class="hero-slide">
+        <img src="banner3.jpg" class="hero-slide">
+    </div>
+
+    <button class="hero-prev">&#10094;</button>
+    <button class="hero-next">&#10095;</button>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".hero-slide");
+    const prevBtn = document.querySelector(".hero-prev");
+    const nextBtn = document.querySelector(".hero-next");
+
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove("active"));
+        slides[index].classList.add("active");
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+
+        if (currentSlide >= slides.length) currentSlide = 0;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+
+        showSlide(currentSlide);
+    }
+
+    prevBtn.addEventListener("click", () => changeSlide(-1));
+    nextBtn.addEventListener("click", () => changeSlide(1));
+
+    setInterval(() => changeSlide(1), 5000);
+});
+</script>
+<!-- ====== HERO LANDSCAPE BANNER SLIDER END ====== -->
+
+
+    <main>
+        <div class="cards-container">
+            <div class="card">
+
+                <h3>Gallery</h3>
+                <div class="column" style="width: 300px; height: 230px; display: flex; align-items: center; justify-content: center;">
+    <!-- Your content here, e.g., an image -->
+    <img src="banner9.jpg" alt="Profile" style="width: 110%; height: 100%; object-fit: cover; border-radius: 0%;">
+</div>
+
+     
+                <p>Explore snapshots of Ramon Torres National High School! See classrooms, labs, sports events, and cultural programs.</p>
+                 <nav>
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <!-- Updated Photos link -->
+        <a href="file:///D:/Ramon%20Torres/photos.html">Photos</a>
+        <a href="contact.html">Contact</a>
+    </nav><a href="photos.html" class="btn">Learn More</a>
+            </div>
+            <div class="card">
+                <h3>Events</h3>
+               <div class="column" style="width: 300px; height: 230px; display: flex; align-items: center; justify-content: center;">
+    <!-- Your content here, e.g., an image -->
+    <img src="banner8.jpg" alt="Profile" style="width: 110%; height: 100%; object-fit: cover; border-radius: 0%;">
+</div>
+  <p>Explore the exciting events at RTNHS! From school programs to celebrations and activities, see how our community comes together and thrives.</p>
+
+                <nav>
+    <a href="home.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="file:///D:/Ramon%20Torres/photos.html">Photos</a>
+    
+    
+    <a href="file:///D:/Ramon%20Torres/videos.html">Videos</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+                <a href="videos.html" class="btn">Learn More</a>
+            </div>
+            <div class="card">
+                <h3>Location</h3>
+                <div class="column" style="width: 300px; height: 250px; display: flex; align-items: center; justify-content: center;">
+    <!-- Your content here, e.g., an image -->
+    <img src="banner15.jpg" alt="Profile" style="width: 110%; height: 100%; object-fit: cover; border-radius: 0%;">
+</div>
+                <p>Find us easily! Discover the school’s surroundings and setting, giving you a clear picture of where students learn and grow.</p>
+                <a href="location.html" class="btn">Learn More</a>
+            </div>
+        </div>
+    </main>
+<style>
+body {
+    margin: 0;
+}
+
+.stacked-images img {
+    width: 100%;
+    display: block; /* removes small space under images */
+}
+</style>
+
+<div class="stacked-images">
+    <img src="banner8.jpg" alt="School Landscape">
+    <img src="nchong utob.jpg" alt="School Landscape">
+</div>
+
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2026 Ramon Torres National High School. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

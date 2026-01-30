@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photos - Ramon Torres National High School</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        background: #f5f7fa;
+        color: #333;
+    }
+
+    /* HEADER */
+    header {
+        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        color: white;
+        padding: 20px 10px;
+        text-align: center;
+    }
+    header h1 { font-size: 50px; margin-bottom: 3px; }
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 500;
+        transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 0.7; }
+
+    /* GALLERY SECTION */
+    main {
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .photo-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+    }
+
+    .photo-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .photo-card img {
+        width: 50%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .photo-card h3 {
+        margin: 15px 0 10px;
+        font-size: 20px;
+    }
+
+    .photo-card p {
+        padding: 0 15px 15px;
+        color: #555;
+        font-size: 20px;
+    }
+
+    /* FOOTER */
+    footer {
+        background: #222;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 300px) {
+        header h1 { font-size: 40px; }
+        .photo-card img { height: 180px; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Ramon Torres National High School </h1>
+     <p>Ad Astra</p>
+</header>
+<!-- ====== HERO LANDSCAPE BANNER SLIDER START ====== -->
+
+<style>
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Makes it tall like a big landscape banner */
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.hero-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+/* Dark overlay for better visibility if you add text later */
+.hero-slider::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.35);
+}
+
+/* Navigation buttons */
+.hero-prev,
+.hero-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.25);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 26px;
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+}
+
+.hero-prev:hover,
+.hero-next:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.hero-prev { left: 25px; }
+.hero-next { right: 25px; }
+</style>
+
+<div class="hero-slider">
+    <div class="hero-slides">
+        <img src="banner.png" class="hero-slide active">
+       <img src="banner9.jpg" class="hero-slide ">
+        <img src="banner3.jpg" class="hero-slide ">
+    </div>
+
+    <button class="hero-prev">&#10094;</button>
+    <button class="hero-next">&#10095;</button>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".hero-slide");
+    const prevBtn = document.querySelector(".hero-prev");
+    const nextBtn = document.querySelector(".hero-next");
+
+    function showSlide(index) {
+        slides.forEach(slide => slide.classList.remove("active"));
+        slides[index].classList.add("active");
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+
+        if (currentSlide >= slides.length) currentSlide = 0;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+
+        showSlide(currentSlide);
+    }
+
+    prevBtn.addEventListener("click", () => changeSlide(-1));
+    nextBtn.addEventListener("click", () => changeSlide(1));
+
+    setInterval(() => changeSlide(1), 5000);
+});
+</script>
+<!-- ====== HERO LANDSCAPE BANNER SLIDER END ====== -->
+<main>
+    <div class="gallery-grid">
+        <div class="photo-card">
+           <img src="po1.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card">
+           <img src="po2.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card">
+            <img src="po3.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card">
+         <img src="po4.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card">
+           <img src="po5.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+         <div class="photo-card">
+           <img src="po6.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+         <div class="photo-card">
+           <img src="po7.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+         <div class="photo-card">
+           <img src="po8.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+         <div class="photo-card">
+           <img src="po9.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card">
+           <img src="po10.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="po11.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p12.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p13.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p14.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p15.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p16.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p17.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p18.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p19.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p20.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p21.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p22.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+        <div class="photo-card"> 
+           <img src="p25.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+
+        <div class="photo-card">
+<img src="po1.jpg" alt="School Landscape" style="width: 100%;">
+        </div>
+    </div>
+</main>
+
+<footer>
+    <img src="banner2.jpg" alt="School Landscape" style="width: 100%;">
+    &copy; 2026 Ramon Torres National High School. All rights reserved.
+</footer>
+
+</body>
+</html>
