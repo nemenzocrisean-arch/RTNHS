@@ -261,6 +261,51 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
+        /* INTRODUCTION SECTION */
+        .introduction-section {
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .introduction-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .introduction-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .introduction-section p {
+            font-size: 1.05rem;
+            color: #4a5568;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .introduction-section p:last-child {
+            margin-bottom: 0;
+        }
+
         /* FOOTER */
         footer { 
             background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
@@ -315,6 +360,19 @@
                 font-size: 2rem;
             }
 
+            .introduction-section {
+                padding: 2rem 1.5rem;
+                margin: 2rem auto;
+            }
+
+            .introduction-section h2 {
+                font-size: 2rem;
+            }
+
+            .introduction-section p {
+                font-size: 1rem;
+            }
+
             .hero-slider {
                 height: 50vh;
                 min-height: 350px;
@@ -356,6 +414,7 @@
             <nav>
                 <ul>
                     <li><a href="about.html">About</a></li>
+                    <li><a href="photos.html">Photos</a></li>
                     <li><a href="contact.html">Contact</a></li>
                     <li><a href="developers.html">Developer</a></li>
                 </ul>
@@ -415,6 +474,29 @@
 
     <div class="stacked-images">
         <img src="banner8.jpg" alt="School Landscape">
+    </div>
+
+    <!-- Introduction Section -->
+    <section class="introduction-section">
+        <h2>Welcome to RTNHS</h2>
+        <p>
+            Welcome to Ramon Torres National High School (RTNHS), a place where learning, growth, and community come together. Our school is dedicated to providing a well-rounded education that not only develops academic skills but also nurtures creativity, leadership, and personal development. Through this section, we invite you to explore RTNHS through our photos, videos, and location details.
+        </p>
+        <p>
+            Photos allow you to see the vibrant life of our school. From lively classrooms and fully equipped laboratories to sports events, arts programs, and extracurricular activities, each image captures the energy, dedication, and achievements of our students and staff. These snapshots give a real sense of the environment where students engage, explore, and grow every day.
+        </p>
+        <p>
+            Videos provide a dynamic look into the school's activities and programs. Watch how students participate in academic projects, cultural events, and community initiatives. Through these videos, visitors can experience the spirit of RTNHS — a school that fosters collaboration, creativity, and excellence in every endeavor.
+        </p>
+        <p>
+            Location details help you understand the school's setting within the community. Situated in a place that encourages learning and connection, RTNHS is not only a hub for education but also a space where students create memories, form friendships, and build their futures. Our surroundings reflect the school's commitment to creating a safe, welcoming, and inspiring environment for all.
+        </p>
+        <p>
+            Through these visual and descriptive resources, we hope you gain a deeper understanding of what makes Ramon Torres National High School a unique and thriving educational institution. Explore, watch, and discover the heart of our school community.
+        </p>
+    </section>
+
+    <div class="stacked-images">
         <img src="nchong utob.jpg" alt="School Campus">
     </div>
 
@@ -454,4 +536,3 @@
     </script>
 </body>
 </html>
-
