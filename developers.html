@@ -4,63 +4,521 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Dashboard - RTNHS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', Arial, sans-serif; }
-        body { background:#f8fafc; color:#333; line-height:1.6; }
-        header { background:#1a202c; color:white; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
-        header h1 { font-size:1.8rem; }
-        nav a { color:white; text-decoration:none; margin-left:1rem; font-weight:500; }
-        nav a:hover { opacity:0.8; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        main { max-width:1200px; margin:2rem auto; padding:0 2rem; }
-        h2 { margin-bottom:1rem; color:#1a202c; }
-        .card-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:1.5rem; margin-top:2rem; }
-        .card { background:white; padding:1.5rem; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
-        .card h3 { margin-bottom:0.5rem; font-size:1.25rem; }
-        .card p { font-size:0.95rem; margin-bottom:1rem; color:#4a5568; }
-        .btn { display:inline-block; background:#667eea; color:white; padding:0.5rem 1rem; border-radius:8px; text-decoration:none; font-weight:500; transition:all 0.3s ease; }
-        .btn:hover { background:#764ba2; }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(to bottom, #f8fafc 0%, #e8ecf1 100%);
+            color: #333;
+            line-height: 1.6;
+        }
 
-        footer { background:#1a202c; color:white; text-align:center; padding:1.5rem 0; margin-top:3rem; font-size:0.9rem; }
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
 
-        @media(max-width:768px) { .card-container { grid-template-columns:1fr; } header { flex-direction:column; gap:0.5rem; } nav a { margin-left:0; margin-right:1rem; } }
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 2rem auto 0;
+            line-height: 1.8;
+        }
+
+        /* GALLERY GRID */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .bionote-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .bionote-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .bionote-image {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+
+        .bionote-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .bionote-card:hover .bionote-image img {
+            transform: scale(1.05);
+        }
+
+        .bionote-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .bionote-card:hover .bionote-overlay {
+            opacity: 1;
+        }
+
+        .bionote-info {
+            color: white;
+            width: 100%;
+        }
+
+        .bionote-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .bionote-info p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .developer-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            font-size: 36px;
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            font-weight: 300;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 20px 24px;
+            cursor: pointer;
+            font-size: 32px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* FOOTER */
+        footer {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            margin-top: 4rem;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            main {
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .bionote-image {
+                height: 350px;
+            }
+
+            .lightbox-nav {
+                padding: 15px 18px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .bionote-image {
+                height: 300px;
+            }
+        }
+
+        /* LOADING ANIMATION */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bionote-card {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .bionote-card:nth-child(1) { animation-delay: 0.1s; }
+        .bionote-card:nth-child(2) { animation-delay: 0.2s; }
+        .bionote-card:nth-child(3) { animation-delay: 0.3s; }
+        .bionote-card:nth-child(4) { animation-delay: 0.4s; }
+        .bionote-card:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Developer Dashboard</h1>
-</header>
+    <header>
+        <h1>👨‍💻 Developer Dashboard</h1>
+        <p>Meet the Team Behind RTNHS Website</p>
+    </header>
 
+    <main>
+        <div class="section-header">
+            <h2>Our Development Team</h2>
+            <p>
+                Dedicated students who designed and developed the Ramon Torres National High School website. 
+                Their passion for technology and commitment to excellence brought this project to life.
+            </p>
+        </div>
 
-<div class="gallery-column">
+        <div class="gallery-container" id="gallery">
+            <div class="bionote-card" data-index="0">
+                <div class="bionote-image">
+                    <img src="note1.jpg" alt="Developer 1">
+                    <div class="bionote-overlay">
+                        <div class="bionote-info">
+                            <h3>Developer Profile</h3>
+                            <p>Click to view full bio</p>
+                            <span class="developer-badge">Team Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div class="bionote-image">
-        <img src="note1.jpg" alt="School Landscape">
+            <div class="bionote-card" data-index="1">
+                <div class="bionote-image">
+                    <img src="note2.jpg" alt="Developer 2">
+                    <div class="bionote-overlay">
+                        <div class="bionote-info">
+                            <h3>Developer Profile</h3>
+                            <p>Click to view full bio</p>
+                            <span class="developer-badge">Team Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bionote-card" data-index="2">
+                <div class="bionote-image">
+                    <img src="note3.jpg" alt="Developer 3">
+                    <div class="bionote-overlay">
+                        <div class="bionote-info">
+                            <h3>Developer Profile</h3>
+                            <p>Click to view full bio</p>
+                            <span class="developer-badge">Team Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bionote-card" data-index="3">
+                <div class="bionote-image">
+                    <img src="note4.jpg" alt="Developer 4">
+                    <div class="bionote-overlay">
+                        <div class="bionote-info">
+                            <h3>Developer Profile</h3>
+                            <p>Click to view full bio</p>
+                            <span class="developer-badge">Team Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bionote-card" data-index="4">
+                <div class="bionote-image">
+                    <img src="note5.jpg" alt="Developer 5">
+                    <div class="bionote-overlay">
+                        <div class="bionote-info">
+                            <h3>Developer Profile</h3>
+                            <p>Click to view full bio</p>
+                            <span class="developer-badge">Team Member</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+            <img id="lightbox-img" src="" alt="Enlarged bio">
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous bio">&#10094;</button>
+            <button class="lightbox-nav lightbox-next" aria-label="Next bio">&#10095;</button>
+        </div>
     </div>
 
-    <div class="bionote-image">
-        <img src="note2.jpg" alt="School Landscape">
-    </div>
+    <footer>
+        <p>&copy; 2026 Ramon Torres National High School - Developer Dashboard</p>
+    </footer>
 
-    <div class="bionote-image">
-        <img src="note3.jpg" alt="School Landscape">
-    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lightbox functionality
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const closeBtn = document.querySelector(".lightbox-close");
+        const lightboxPrev = document.querySelector(".lightbox-prev");
+        const lightboxNext = document.querySelector(".lightbox-next");
+        const bionoteCards = document.querySelectorAll(".bionote-card");
+        let currentIndex = 0;
 
-    <div class="bionote-image">
-        <img src="note4.jpg" alt="School Landscape">
-    </div>
+        // Get all image sources
+        const imageSources = Array.from(bionoteCards).map(card => 
+            card.querySelector("img").src
+        );
 
-    <div class="bionote-image">
-        <img src="note5.jpg" alt="School Landscape">
-    </div>
+        // Open lightbox
+        bionoteCards.forEach((card, index) => {
+            card.addEventListener("click", () => {
+                currentIndex = index;
+                lightboxImg.src = imageSources[currentIndex];
+                lightbox.classList.add("active");
+                document.body.style.overflow = "hidden";
+            });
+        });
 
-</div>
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "auto";
+        }
 
-<footer>
-    &copy; 2026 Ramon Torres National High School - Developer Dashboard
-</footer>
+        closeBtn.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Navigate bios in lightbox
+        function navigateLightbox(direction) {
+            currentIndex += direction;
+            if (currentIndex >= imageSources.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = imageSources.length - 1;
+            lightboxImg.src = imageSources[currentIndex];
+        }
+
+        lightboxPrev.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navigateLightbox(-1);
+        });
+
+        lightboxNext.addEventListener("click", (e) => {
+            e.stopPropagation();
+            navigateLightbox(1);
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", (e) => {
+            if (!lightbox.classList.contains("active")) return;
+            
+            if (e.key === "Escape") closeLightbox();
+            if (e.key === "ArrowLeft") navigateLightbox(-1);
+            if (e.key === "ArrowRight") navigateLightbox(1);
+        });
+    });
+    </script>
 
 </body>
 </html>
