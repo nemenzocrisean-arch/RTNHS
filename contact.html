@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Ramon Torres National High School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ===== Reset defaults ===== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,255 +13,548 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            background: linear-gradient(to bottom, #f8fafc 0%, #e8ecf1 100%);
             line-height: 1.6;
+            color: #333;
         }
 
-        /* ===== Header ===== */
+        /* HEADER */
         header {
-            background: linear-gradient(to right, #4facfe, #00f2fe);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 40px 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
 
         header h1 {
-            font-size: 48px;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -0.5px;
         }
 
-        nav a {
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* HERO SLIDER */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 65vh;
+            min-height: 450px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slider::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .hero-prev,
+        .hero-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
             color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 16px 22px;
+            cursor: pointer;
+            font-size: 28px;
+            border-radius: 50%;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        .hero-prev:hover,
+        .hero-next:hover {
+            background: rgba(255,255,255,0.6);
+            transform: translateY(-50%) scale(1.1);
         }
 
-        /* ===== Section Styling ===== */
-        section {
-            background-color: white;
-            padding: 30px 20px;
-            margin: 20px auto;
-            max-width: 900px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .hero-prev { left: 30px; }
+        .hero-next { right: 30px; }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
 
-        section h2 {
+        /* SECTION HEADER */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 700px;
+            margin: 2rem auto 0;
+            line-height: 1.8;
+        }
+
+        /* CONTACT INFO CARDS */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15);
+        }
+
+        .info-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 32px;
-            margin-bottom: 20px;
-            color: #333;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            font-size: 1.05rem;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .info-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .info-card a:hover {
+            color: #764ba2;
+        }
+
+        /* CONTACT FORM SECTION */
+        .form-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 4rem;
+        }
+
+        .form-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 2rem;
             text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+            position: relative;
         }
 
-        section p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 15px;
-            text-align: center;
+        .form-section h2::before {
+            content: "✉️";
+            margin-right: 0.5rem;
         }
 
-        /* ===== Contact Info ===== */
-        .contact-info p {
-            font-size: 18px;
-            margin: 8px 0;
+        .form-section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
         }
 
-        /* ===== Contact Form ===== */
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            max-width: 600px;
-            margin: 0 auto;
+            gap: 1.5rem;
+            max-width: 700px;
+            margin: 2rem auto 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1rem;
         }
 
         input, textarea {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            font-size: 1rem;
+            font-family: 'Inter', Arial, sans-serif;
+            transition: all 0.3s ease;
+            background: #f8fafc;
         }
 
-        button {
-            padding: 12px;
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        button[type="submit"] {
+            padding: 1rem 2.5rem;
             border: none;
-            border-radius: 5px;
-            background-color: #4facfe;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-size: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            font-family: 'Inter', Arial, sans-serif;
         }
 
-        button:hover {
-            background-color: #00f2fe;
+        button[type="submit"]:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
 
-        /* ===== Footer ===== */
+        button[type="submit"]:active {
+            transform: translateY(-1px);
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border-left: 5px solid #10b981;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-message p {
+            color: #065f46;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* FOOTER */
         footer {
-            background-color: #333;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 2.5rem 2rem;
+            margin-top: 4rem;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
         }
 
-        /* ===== Responsive ===== */
-        @media (max-width: 700px) {
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
             header h1 {
-                font-size: 36px;
+                font-size: 2rem;
             }
 
-            form {
-                width: 90%;
+            .section-header h2 {
+                font-size: 2rem;
             }
+
+            .container {
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .hero-slider {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .hero-prev, .hero-next {
+                padding: 12px 16px;
+                font-size: 22px;
+            }
+            
+            .hero-prev { left: 15px; }
+            .hero-next { right: 15px; }
         }
 
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .form-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-card {
+                padding: 2rem 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ===== Header ===== -->
     <header>
-        <h1>Contact Ramon Torres National High School</h1>
-        
+        <h1>Contact Us</h1>
+        <p>Get in Touch with Ramon Torres National High School</p>
     </header>
-<!-- ====== HERO LANDSCAPE BANNER SLIDER START ====== -->
-<style>
-.hero-slider {
-    position: relative;
-    width: 100%;
-    height: 70vh; /* Makes it tall like a big landscape banner */
-    min-height: 400px;
-    overflow: hidden;
-}
 
-.hero-slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.hero-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.hero-slide.active {
-    opacity: 1;
-}
-
-/* Dark overlay for better visibility if you add text later */
-.hero-slider::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.35);
-}
-
-/* Navigation buttons */
-.hero-prev,
-.hero-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.25);
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    cursor: pointer;
-    font-size: 26px;
-    border-radius: 50%;
-    backdrop-filter: blur(4px);
-    z-index: 2;
-}
-
-.hero-prev:hover,
-.hero-next:hover {
-    background: rgba(255,255,255,0.5);
-}
-
-.hero-prev { left: 25px; }
-.hero-next { right: 25px; }
-</style>
-
-<div class="hero-slider">
-    <div class="hero-slides">
-        <img src="banner.png" class="hero-slide active">
-       <img src="banner9.jpg" class="hero-slide">
-        <img src="banner3.jpg" class="hero-slide">
+    <!-- HERO SLIDER -->
+    <div class="hero-slider">
+        <div class="hero-slides">
+            <img src="banner.png" class="hero-slide active" alt="School Banner">
+            <img src="banner9.jpg" class="hero-slide" alt="School Banner">
+            <img src="banner3.jpg" class="hero-slide" alt="School Banner">
+        </div>
+        <button class="hero-prev" aria-label="Previous slide">&#10094;</button>
+        <button class="hero-next" aria-label="Next slide">&#10095;</button>
     </div>
 
-    <button class="hero-prev">&#10094;</button>
-    <button class="hero-next">&#10095;</button>
-</div>
+    <div class="container">
+        <div class="section-header">
+            <h2>We'd Love to Hear From You</h2>
+            <p>
+                Have questions or need more information? Feel free to reach out to us through any of the following channels or send us a message using the form below.
+            </p>
+        </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".hero-slide");
-    const prevBtn = document.querySelector(".hero-prev");
-    const nextBtn = document.querySelector(".hero-next");
+        <!-- CONTACT INFO CARDS -->
+        <div class="contact-info-grid">
+            <div class="info-card">
+                <div class="info-icon">📍</div>
+                <h3>Our Location</h3>
+                <p>General Luna Street<br>Barangay Balingasag<br>Bago City, Negros Occidental</p>
+            </div>
 
-    function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove("active"));
-        slides[index].classList.add("active");
-    }
+            <div class="info-card">
+                <div class="info-icon">📞</div>
+                <h3>Phone</h3>
+                <p><a href="tel:+63341234567">+63 34 123 4567</a></p>
+            </div>
 
-    function changeSlide(direction) {
-        currentSlide += direction;
+            <div class="info-card">
+                <div class="info-icon">✉️</div>
+                <h3>Email</h3>
+                <p><a href="mailto:info@rtnhs.edu.ph">info@rtnhs.edu.ph</a></p>
+            </div>
+        </div>
 
-        if (currentSlide >= slides.length) currentSlide = 0;
-        if (currentSlide < 0) currentSlide = slides.length - 1;
+        <!-- CONTACT FORM -->
+        <div class="form-section">
+            <h2>Send Us a Message</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
 
-        showSlide(currentSlide);
-    }
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
 
-    prevBtn.addEventListener("click", () => changeSlide(-1));
-    nextBtn.addEventListener("click", () => changeSlide(1));
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input type="text" id="subject" name="subject" placeholder="What is this regarding?" required>
+                </div>
 
-    setInterval(() => changeSlide(1), 5000);
-});
-</script>
-<!-- ====== HERO LANDSCAPE BANNER SLIDER END ====== -->
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+                </div>
 
+                <button type="submit">Send Message 📨</button>
 
-    <!-- ===== Contact Info ===== -->
-    <section class="contact-info">
-        <h2>Get in Touch</h2>
-        <p>📍 Address: General Luna Street, Barangay Balingasag, Bago City, Negros Occidental</p>
-        <p>📞 Phone: +63 34 123 4567</p>
-        <p>✉️ Email: info@rtnhs.edu.ph</p>
-    </section>
+                <div class="success-message" id="successMessage">
+                    <p>✓ Thank you! Your message has been sent successfully. We'll get back to you soon.</p>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <!-- ===== Contact Form ===== -->
-    <section>
-        <h2>Send Us a Message</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
-
-    <!-- ===== Footer ===== -->
     <footer>
-        &copy; 2026 Ramon Torres National High School. All rights reserved.
+        <p>&copy; 2026 Ramon Torres National High School. All rights reserved.</p>
     </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".hero-slide");
+        const prevBtn = document.querySelector(".hero-prev");
+        const nextBtn = document.querySelector(".hero-next");
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+
+            showSlide(currentSlide);
+        }
+
+        prevBtn.addEventListener("click", () => changeSlide(-1));
+        nextBtn.addEventListener("click", () => changeSlide(1));
+
+        // Auto-advance slider every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+
+        // Contact Form Handler
+        const contactForm = document.getElementById("contactForm");
+        const successMessage = document.getElementById("successMessage");
+
+        contactForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            successMessage.classList.add("active");
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove("active");
+            }, 5000);
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    });
+    </script>
 
 </body>
 </html>
