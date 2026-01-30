@@ -5,174 +5,482 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photos - Ramon Torres National High School</title>
 <style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
+    * {
         margin: 0;
-        background: #f5f7fa;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom, #f5f7fa 0%, #e8ecf1 100%);
         color: #333;
+        min-height: 100vh;
     }
 
     /* HEADER */
     header {
-        background: linear-gradient(135deg, #4facfe, #00f2fe);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        padding: 20px 10px;
+        padding: 30px 20px;
         text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
     }
-    header h1 { font-size: 50px; margin-bottom: 3px; }
+
+    header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+    }
+
+    header h1 { 
+        font-size: 56px; 
+        margin-bottom: 8px;
+        font-weight: 700;
+        position: relative;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        letter-spacing: 1px;
+    }
+
+    header p {
+        font-size: 18px;
+        font-style: italic;
+        opacity: 0.95;
+        position: relative;
+        letter-spacing: 2px;
+    }
+
+    nav {
+        margin-top: 15px;
+        position: relative;
+    }
+
     nav a {
         color: white;
         text-decoration: none;
-        margin: 0 15px;
-        font-weight: 500;
-        transition: opacity 0.3s;
+        margin: 0 18px;
+        font-weight: 600;
+        font-size: 15px;
+        transition: all 0.3s;
+        padding: 8px 16px;
+        border-radius: 20px;
+        display: inline-block;
     }
-    nav a:hover { opacity: 0.7; }
 
-    /* GALLERY SECTION */
+    nav a:hover { 
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+    }
+
+    /* HERO SLIDER */
+    .hero-slider {
+        position: relative;
+        width: 100%;
+        height: 65vh;
+        min-height: 450px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .hero-slides {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero-slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1.2s ease-in-out;
+    }
+
+    .hero-slide.active {
+        opacity: 1;
+    }
+
+    .hero-slider::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
+    }
+
+    .hero-prev,
+    .hero-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.3);
+        color: white;
+        border: 2px solid rgba(255,255,255,0.5);
+        padding: 16px 22px;
+        cursor: pointer;
+        font-size: 28px;
+        border-radius: 50%;
+        backdrop-filter: blur(8px);
+        z-index: 2;
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+    .hero-prev:hover,
+    .hero-next:hover {
+        background: rgba(255,255,255,0.6);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .hero-prev { left: 30px; }
+    .hero-next { right: 30px; }
+
+    /* MAIN CONTENT */
     main {
-        max-width: 1100px;
-        margin: 20px auto;
+        max-width: 1200px;
+        margin: 40px auto;
         padding: 0 20px;
     }
 
+    .section-title {
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 40px;
+        color: #2c3e50;
+        font-weight: 700;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+
+    /* GALLERY GRID */
     .gallery-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
     }
 
     .photo-card {
         background: white;
-        border-radius: 12px;
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        position: relative;
     }
 
     .photo-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 12px 35px rgba(102, 126, 234, 0.25);
+    }
+
+    .photo-card::before {
+        content: "🔍";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .photo-card:hover::before {
+        opacity: 0.9;
     }
 
     .photo-card img {
-        width: 50%;
-        height: 150px;
+        width: 100%;
+        height: 250px;
         object-fit: cover;
+        display: block;
+        transition: all 0.4s ease;
     }
 
-    .photo-card h3 {
-        margin: 15px 0 10px;
-        font-size: 20px;
+    .photo-card:hover img {
+        filter: brightness(0.7);
+        transform: scale(1.05);
     }
 
-    .photo-card p {
-        padding: 0 15px 15px;
-        color: #555;
-        font-size: 20px;
+    /* LIGHTBOX */
+    .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
     }
+
+    .lightbox.active {
+        display: flex;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .lightbox img {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 8px;
+        box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+        position: absolute;
+        top: -45px;
+        right: 0;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: none;
+        font-size: 36px;
+        cursor: pointer;
+        padding: 8px 20px;
+        border-radius: 8px;
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+        font-weight: 300;
+    }
+
+    .lightbox-close:hover {
+        background: rgba(255,255,255,0.3);
+        transform: scale(1.1);
+    }
+
+    .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: none;
+        padding: 20px 24px;
+        cursor: pointer;
+        font-size: 32px;
+        border-radius: 8px;
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+    .lightbox-nav:hover {
+        background: rgba(255,255,255,0.3);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
 
     /* FOOTER */
     footer {
-        background: #222;
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
         color: white;
         text-align: center;
-        padding: 20px;
-        margin-top: 20px;
+        padding: 30px 20px;
+        margin-top: 60px;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    }
+
+    footer img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    footer p {
+        font-size: 14px;
+        opacity: 0.9;
     }
 
     /* RESPONSIVE */
-    @media (max-width: 300px) {
+    @media (max-width: 768px) {
         header h1 { font-size: 40px; }
-        .photo-card img { height: 180px; }
+        .section-title { font-size: 28px; }
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .photo-card img { height: 200px; }
+        .hero-prev, .hero-next {
+            padding: 12px 16px;
+            font-size: 22px;
+        }
+        .hero-prev { left: 15px; }
+        .hero-next { right: 15px; }
+        .lightbox-nav {
+            padding: 15px 18px;
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header h1 { font-size: 32px; }
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Ramon Torres National High School </h1>
-     <p>Ad Astra</p>
+    <h1>Ramon Torres National High School</h1>
+    <p>Ad Astra</p>
 </header>
-<!-- ====== HERO LANDSCAPE BANNER SLIDER START ====== -->
 
-<style>
-.hero-slider {
-    position: relative;
-    width: 100%;
-    height: 70vh; /* Makes it tall like a big landscape banner */
-    min-height: 400px;
-    overflow: hidden;
-}
-
-.hero-slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.hero-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.hero-slide.active {
-    opacity: 1;
-}
-
-/* Dark overlay for better visibility if you add text later */
-.hero-slider::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.35);
-}
-
-/* Navigation buttons */
-.hero-prev,
-.hero-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.25);
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    cursor: pointer;
-    font-size: 26px;
-    border-radius: 50%;
-    backdrop-filter: blur(4px);
-    z-index: 2;
-}
-
-.hero-prev:hover,
-.hero-next:hover {
-    background: rgba(255,255,255,0.5);
-}
-
-.hero-prev { left: 25px; }
-.hero-next { right: 25px; }
-</style>
-
+<!-- HERO SLIDER -->
 <div class="hero-slider">
     <div class="hero-slides">
-        <img src="banner.png" class="hero-slide active">
-       <img src="banner9.jpg" class="hero-slide ">
-        <img src="banner3.jpg" class="hero-slide ">
+        <img src="banner.png" class="hero-slide active" alt="School Banner">
+        <img src="banner9.jpg" class="hero-slide" alt="School Banner">
+        <img src="banner3.jpg" class="hero-slide" alt="School Banner">
     </div>
-
-    <button class="hero-prev">&#10094;</button>
-    <button class="hero-next">&#10095;</button>
+    <button class="hero-prev" aria-label="Previous slide">&#10094;</button>
+    <button class="hero-next" aria-label="Next slide">&#10095;</button>
 </div>
+
+<main>
+    <h2 class="section-title">Photo Gallery</h2>
+    
+    <div class="gallery-grid" id="gallery">
+        <div class="photo-card" data-index="0">
+            <img src="po1.jpg" alt="School Photo 1">
+        </div>
+        <div class="photo-card" data-index="1">
+            <img src="po2.jpg" alt="School Photo 2">
+        </div>
+        <div class="photo-card" data-index="2">
+            <img src="po3.jpg" alt="School Photo 3">
+        </div>
+        <div class="photo-card" data-index="3">
+            <img src="po4.jpg" alt="School Photo 4">
+        </div>
+        <div class="photo-card" data-index="4">
+            <img src="po5.jpg" alt="School Photo 5">
+        </div>
+        <div class="photo-card" data-index="5">
+            <img src="po6.jpg" alt="School Photo 6">
+        </div>
+        <div class="photo-card" data-index="6">
+            <img src="po7.jpg" alt="School Photo 7">
+        </div>
+        <div class="photo-card" data-index="7">
+            <img src="po8.jpg" alt="School Photo 8">
+        </div>
+        <div class="photo-card" data-index="8">
+            <img src="po9.jpg" alt="School Photo 9">
+        </div>
+        <div class="photo-card" data-index="9">
+            <img src="po10.jpg" alt="School Photo 10">
+        </div>
+        <div class="photo-card" data-index="10">
+            <img src="po11.jpg" alt="School Photo 11">
+        </div>
+        <div class="photo-card" data-index="11">
+            <img src="p12.jpg" alt="School Photo 12">
+        </div>
+        <div class="photo-card" data-index="12">
+            <img src="p13.jpg" alt="School Photo 13">
+        </div>
+        <div class="photo-card" data-index="13">
+            <img src="p14.jpg" alt="School Photo 14">
+        </div>
+        <div class="photo-card" data-index="14">
+            <img src="p15.jpg" alt="School Photo 15">
+        </div>
+        <div class="photo-card" data-index="15">
+            <img src="p16.jpg" alt="School Photo 16">
+        </div>
+        <div class="photo-card" data-index="16">
+            <img src="p17.jpg" alt="School Photo 17">
+        </div>
+        <div class="photo-card" data-index="17">
+            <img src="p18.jpg" alt="School Photo 18">
+        </div>
+        <div class="photo-card" data-index="18">
+            <img src="p19.jpg" alt="School Photo 19">
+        </div>
+        <div class="photo-card" data-index="19">
+            <img src="p20.jpg" alt="School Photo 20">
+        </div>
+        <div class="photo-card" data-index="20">
+            <img src="p21.jpg" alt="School Photo 21">
+        </div>
+        <div class="photo-card" data-index="21">
+            <img src="p22.jpg" alt="School Photo 22">
+        </div>
+        <div class="photo-card" data-index="22">
+            <img src="p25.jpg" alt="School Photo 23">
+        </div>
+        <div class="photo-card" data-index="23">
+            <img src="po1.jpg" alt="School Photo 24">
+        </div>
+    </div>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged photo">
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous photo">&#10094;</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Next photo">&#10095;</button>
+    </div>
+</div>
+
+<footer>
+    <img src="banner2.jpg" alt="School Footer Banner">
+    <p>&copy; 2026 Ramon Torres National High School. All rights reserved.</p>
+</footer>
+
 <script>
+// Hero Slider
 document.addEventListener("DOMContentLoaded", function () {
     let currentSlide = 0;
     const slides = document.querySelectorAll(".hero-slide");
@@ -186,102 +494,78 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function changeSlide(direction) {
         currentSlide += direction;
-
         if (currentSlide >= slides.length) currentSlide = 0;
         if (currentSlide < 0) currentSlide = slides.length - 1;
-
         showSlide(currentSlide);
     }
 
     prevBtn.addEventListener("click", () => changeSlide(-1));
     nextBtn.addEventListener("click", () => changeSlide(1));
 
+    // Auto-advance slider
     setInterval(() => changeSlide(1), 5000);
+
+    // Lightbox functionality
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.querySelector(".lightbox-close");
+    const lightboxPrev = document.querySelector(".lightbox-prev");
+    const lightboxNext = document.querySelector(".lightbox-next");
+    const photoCards = document.querySelectorAll(".photo-card");
+    let currentPhotoIndex = 0;
+
+    // Get all image sources
+    const imageSources = Array.from(photoCards).map(card => card.querySelector("img").src);
+
+    // Open lightbox
+    photoCards.forEach((card, index) => {
+        card.addEventListener("click", () => {
+            currentPhotoIndex = index;
+            lightboxImg.src = imageSources[currentPhotoIndex];
+            lightbox.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent scrolling
+        });
+    });
+
+    // Close lightbox
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "auto";
+    }
+
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Navigate photos in lightbox
+    function navigateLightbox(direction) {
+        currentPhotoIndex += direction;
+        if (currentPhotoIndex >= imageSources.length) currentPhotoIndex = 0;
+        if (currentPhotoIndex < 0) currentPhotoIndex = imageSources.length - 1;
+        lightboxImg.src = imageSources[currentPhotoIndex];
+    }
+
+    lightboxPrev.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navigateLightbox(-1);
+    });
+
+    lightboxNext.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navigateLightbox(1);
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("active")) return;
+        
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") navigateLightbox(-1);
+        if (e.key === "ArrowRight") navigateLightbox(1);
+    });
 });
 </script>
-<!-- ====== HERO LANDSCAPE BANNER SLIDER END ====== -->
-<main>
-    <div class="gallery-grid">
-        <div class="photo-card">
-           <img src="po1.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card">
-           <img src="po2.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card">
-            <img src="po3.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card">
-         <img src="po4.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card">
-           <img src="po5.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-         <div class="photo-card">
-           <img src="po6.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-         <div class="photo-card">
-           <img src="po7.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-         <div class="photo-card">
-           <img src="po8.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-         <div class="photo-card">
-           <img src="po9.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card">
-           <img src="po10.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="po11.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p12.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p13.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p14.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p15.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p16.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p17.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p18.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p19.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p20.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p21.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p22.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-        <div class="photo-card"> 
-           <img src="p25.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-
-        <div class="photo-card">
-<img src="po1.jpg" alt="School Landscape" style="width: 100%;">
-        </div>
-    </div>
-</main>
-
-<footer>
-    <img src="banner2.jpg" alt="School Landscape" style="width: 100%;">
-    &copy; 2026 Ramon Torres National High School. All rights reserved.
-</footer>
 
 </body>
 </html>
