@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - Ramon Torres National High School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ===== Reset defaults ===== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,261 +13,458 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f5f5f5;
-            line-height: 1.6;
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            background: linear-gradient(to bottom, #f8fafc 0%, #e8ecf1 100%);
+            line-height: 1.7;
+            color: #333;
         }
 
-        /* ===== Header ===== */
+        /* HEADER */
         header {
-            background: linear-gradient(to right, #4facfe, #00f2fe);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
-            padding: 40px 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
 
         header h1 {
-            font-size: 48px;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -0.5px;
         }
 
-        nav a {
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* HERO SLIDER */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 65vh;
+            min-height: 450px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slider::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .hero-prev,
+        .hero-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
             color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 16px 22px;
+            cursor: pointer;
+            font-size: 28px;
+            border-radius: 50%;
+            backdrop-filter: blur(8px);
+            z-index: 2;
+            transition: all 0.3s ease;
+            font-weight: bold;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        .hero-prev:hover,
+        .hero-next:hover {
+            background: rgba(255,255,255,0.6);
+            transform: translateY(-50%) scale(1.1);
         }
 
-        /* ===== Section Styling ===== */
+        .hero-prev { left: 30px; }
+        .hero-next { right: 30px; }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* INTRO SECTION */
+        .intro-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .intro-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .intro-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            line-height: 1.8;
+        }
+
+        /* CONTENT SECTIONS */
         section {
-            background-color: white;
-            padding: 30px 20px;
-            margin: 20px auto;
-            max-width: 900px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: white;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15);
         }
 
         section h2 {
-            font-size: 32px;
-            margin-bottom: 15px;
-            color: #333;
-            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+            position: relative;
+        }
+
+        section h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
         }
 
         section p {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: #4a5568;
+            margin-bottom: 1.2rem;
             text-align: justify;
+            line-height: 1.8;
         }
 
-        /* ===== Footer ===== */
+        section p:last-child {
+            margin-bottom: 0;
+        }
+
+        section strong {
+            color: #2d3748;
+            font-weight: 700;
+        }
+
+        /* GRID LAYOUT FOR SECTIONS */
+        .grid-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-sections section {
+            margin-bottom: 0;
+        }
+
+        /* MISSION & VISION SPECIAL STYLING */
+        .mission-vision {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-left: 5px solid #667eea;
+        }
+
+        /* ACHIEVEMENTS SPECIAL STYLING */
+        .achievements {
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            border-left: 5px solid #10b981;
+        }
+
+        .achievements h2 {
+            border-bottom-color: #10b981;
+        }
+
+        .achievements h2::before {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        /* ICON DECORATIONS */
+        .icon-decoration {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        /* FOOTER */
         footer {
-            background-color: #333;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
             color: white;
             text-align: center;
-            padding: 20px;
-            margin-top: 20px;
+            padding: 2.5rem 2rem;
+            margin-top: 4rem;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
         }
 
-        /* ===== Responsive ===== */
-        @media (max-width: 700px) {
-            section {
-                width: 90%;
-                padding: 25px 15px;
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
             }
 
+            .intro-section h2 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            section {
+                padding: 2rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.75rem;
+            }
+
+            .grid-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-slider {
+                height: 50vh;
+                min-height: 350px;
+            }
+
+            .hero-prev, .hero-next {
+                padding: 12px 16px;
+                font-size: 22px;
+            }
+            
+            .hero-prev { left: 15px; }
+            .hero-next { right: 15px; }
+        }
+
+        @media (max-width: 480px) {
             header h1 {
-                font-size: 36px;
+                font-size: 1.75rem;
+            }
+
+            .intro-section h2 {
+                font-size: 1.75rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            section p {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== Header / Banner ===== -->
     <header>
         <h1>About Ramon Torres National High School</h1>
-        <nav>
-        </nav>
+        <p>Ad Astra - To The Stars</p>
     </header>
-<!-- ====== HERO LANDSCAPE BANNER SLIDER START ====== -->
-<style>
-.hero-slider {
-    position: relative;
-    width: 100%;
-    height: 70vh; /* Makes it tall like a big landscape banner */
-    min-height: 400px;
-    overflow: hidden;
-}
 
-.hero-slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.hero-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.hero-slide.active {
-    opacity: 1;
-}
-
-/* Dark overlay for better visibility if you add text later */
-.hero-slider::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.35);
-}
-
-/* Navigation buttons */
-.hero-prev,
-.hero-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.25);
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    cursor: pointer;
-    font-size: 26px;
-    border-radius: 50%;
-    backdrop-filter: blur(4px);
-    z-index: 2;
-}
-
-.hero-prev:hover,
-.hero-next:hover {
-    background: rgba(255,255,255,0.5);
-}
-
-.hero-prev { left: 25px; }
-.hero-next { right: 25px; }
-</style>
-
-<div class="hero-slider">
-    <div class="hero-slides">
-        <img src="banner.png" class="hero-slide active">
-       <img src="banner9.jpg" class="hero-slide">
-        <img src="banner3.jpg" class="hero-slide">
+    <!-- HERO SLIDER -->
+    <div class="hero-slider">
+        <div class="hero-slides">
+            <img src="banner.png" class="hero-slide active" alt="School Banner">
+            <img src="banner9.jpg" class="hero-slide" alt="School Banner">
+            <img src="banner3.jpg" class="hero-slide" alt="School Banner">
+        </div>
+        <button class="hero-prev" aria-label="Previous slide">&#10094;</button>
+        <button class="hero-next" aria-label="Next slide">&#10095;</button>
     </div>
 
-    <button class="hero-prev">&#10094;</button>
-    <button class="hero-next">&#10095;</button>
-</div>
+    <div class="container">
+        <div class="intro-section">
+            <h2>Our Story</h2>
+            <p>
+                Ramon Torres National High School has been a beacon of educational excellence in Bago City since 1947. 
+                We are committed to nurturing young minds, fostering innovation, and building character through quality education.
+            </p>
+        </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".hero-slide");
-    const prevBtn = document.querySelector(".hero-prev");
-    const nextBtn = document.querySelector(".hero-next");
+        <!-- HISTORY SECTION -->
+        <section>
+            <h2>📚 History</h2>
+            <p>
+                Ramon Torres National High School (RTNHS) was established in 1947, originally named Bago Junior High School. 
+                Over the years, it underwent several name changes before being renamed Ramon Torres Memorial High School in 1977, 
+                honoring former Senator Ramon Torres, the school's chief founder. In 1983, Batas Pambansa Blg. 411 officially 
+                converted it into a national high school, broadening its academic and vocational programs.
+            </p>
+        </section>
 
-    function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove("active"));
-        slides[index].classList.add("active");
-    }
+        <!-- MISSION & VISION SECTION -->
+        <section class="mission-vision">
+            <h2>🎯 Mission & Vision</h2>
+            <p>
+                <strong>Mission:</strong> To provide quality education and holistic development to all students, empowering them to 
+                become responsible citizens of the community.
+            </p>
+            <p>
+                <strong>Vision:</strong> To become a leading educational institution recognized for academic excellence, 
+                extracurricular achievements, and community involvement.
+            </p>
+        </section>
 
-    function changeSlide(direction) {
-        currentSlide += direction;
+        <!-- GRID SECTIONS -->
+        <div class="grid-sections">
+            <!-- CAMPUS & FACILITIES SECTION -->
+            <section>
+                <h2>🏫 Campus & Facilities</h2>
+                <p>
+                    The main campus of RTNHS is located on General Luna Street, Barangay Balingasag, Bago City. 
+                    It features multiple classroom buildings, administrative offices, a covered court, an e-library, technical vocational 
+                    laboratories, and other modern facilities designed to enhance student learning.
+                </p>
+            </section>
 
-        if (currentSlide >= slides.length) currentSlide = 0;
-        if (currentSlide < 0) currentSlide = slides.length - 1;
+            <!-- ACADEMIC PROGRAMS SECTION -->
+            <section>
+                <h2>📖 Academic Programs</h2>
+                <p>
+                    RTNHS offers Junior High School (Grades 7–10) following the K to 12 curriculum and Senior High School (Grades 11–12) 
+                    with Academic Tracks including STEM, ABM, HUMSS, and GAS, as well as Technical-Vocational-Livelihood (TVL) tracks 
+                    like Cookery, Tailoring, Electrical, and Welding.
+                </p>
+            </section>
+        </div>
 
-        showSlide(currentSlide);
-    }
+        <!-- ACHIEVEMENTS SECTION -->
+        <section class="achievements">
+            <h2>🏆 Achievements</h2>
+            <p>
+                RTNHS students have earned recognition in regional competitions such as robotics contests and sports tournaments. 
+                The school emphasizes both academic excellence and extracurricular involvement to foster well-rounded learners.
+            </p>
+        </section>
 
-    prevBtn.addEventListener("click", () => changeSlide(-1));
-    nextBtn.addEventListener("click", () => changeSlide(1));
+        <!-- COMMUNITY INVOLVEMENT SECTION -->
+        <section>
+            <h2>🤝 Community Involvement</h2>
+            <p>
+                The school actively engages with the local community through civic programs, youth leadership activities, 
+                and alumni events. It serves as a hub for both education and community development in Bago City.
+            </p>
+        </section>
+    </div>
 
-    setInterval(() => changeSlide(1), 5000);
-});
-</script>
-<!-- ====== HERO LANDSCAPE BANNER SLIDER END ====== -->
-
-
-    <!-- ===== History Section ===== -->
-    <section>
-        <h2>History</h2>
-        <p>
-            Ramon Torres National High School (RTNHS) was established in 1947, originally named Bago Junior High School. 
-            Over the years, it underwent several name changes before being renamed Ramon Torres Memorial High School in 1977, 
-            honoring former Senator Ramon Torres, the school’s chief founder. In 1983, Batas Pambansa Blg. 411 officially 
-            converted it into a national high school, broadening its academic and vocational programs.
-        </p>
-    </section>
-
-    <!-- ===== Mission & Vision Section ===== -->
-    <section>
-        <h2>Mission & Vision</h2>
-        <p>
-            <strong>Mission:</strong> To provide quality education and holistic development to all students, empowering them to 
-            become responsible citizens of the community.
-        </p>
-        <p>
-            <strong>Vision:</strong> To become a leading educational institution recognized for academic excellence, 
-            extracurricular achievements, and community involvement.
-        </p>
-    </section>
-
-    <!-- ===== Campus & Facilities Section ===== -->
-    <section>
-        <h2>Campus & Facilities</h2>
-        <p>
-            The main campus of RTNHS is located on General Luna Street, Barangay Balingasag, Bago City. 
-            It features multiple classroom buildings, administrative offices, a covered court, an e-library, technical vocational 
-            laboratories, and other modern facilities designed to enhance student learning.
-        </p>
-    </section>
-
-    <!-- ===== Academic Programs Section ===== -->
-    <section>
-        <h2>Academic Programs</h2>
-        <p>
-            RTNHS offers Junior High School (Grades 7–10) following the K to 12 curriculum and Senior High School (Grades 11–12) 
-            with Academic Tracks including STEM, ABM, HUMSS, and GAS, as well as Technical-Vocational-Livelihood (TVL) tracks 
-            like Cookery, Tailoring, Electrical, and Welding.
-        </p>
-    </section>
-
-    <!-- ===== Achievements Section ===== -->
-    <section>
-        <h2>Achievements</h2>
-        <p>
-            RTNHS students have earned recognition in regional competitions such as robotics contests and sports tournaments. 
-            The school emphasizes both academic excellence and extracurricular involvement to foster well-rounded learners.
-        </p>
-    </section>
-
-    <!-- ===== Community Involvement Section ===== -->
-    <section>
-        <h2>Community Involvement</h2>
-        <p>
-            The school actively engages with the local community through civic programs, youth leadership activities, 
-            and alumni events. It serves as a hub for both education and community development in Bago City.
-        </p>
-    </section>
-
-    <!-- ===== Footer ===== -->
     <footer>
-        &copy; 2026 Ramon Torres National High School. All rights reserved.
+        <p>&copy; 2026 Ramon Torres National High School. All rights reserved.</p>
     </footer>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".hero-slide");
+        const prevBtn = document.querySelector(".hero-prev");
+        const nextBtn = document.querySelector(".hero-next");
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+
+            showSlide(currentSlide);
+        }
+
+        prevBtn.addEventListener("click", () => changeSlide(-1));
+        nextBtn.addEventListener("click", () => changeSlide(1));
+
+        // Auto-advance slider every 5 seconds
+        setInterval(() => changeSlide(1), 5000);
+    });
+    </script>
 
 </body>
 </html>
